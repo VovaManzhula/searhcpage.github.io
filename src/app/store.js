@@ -1,8 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { applyMiddleware, createStore } from "@reduxjs/toolkit";
+import createSagaMiddleware from "redux-saga";
+import reducer from "./reducer";
+import rootSaga from "./sagas";
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
+const sagaMiddleware = createSagaMiddleware({});
+
+const store = createStore(reducer, composeWithDevTools( applyMiddleware(sagaMiddleware)));
+
+sagaMiddleware.run(rootSaga);
+export default store;
