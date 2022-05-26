@@ -1,4 +1,4 @@
-import { takeEvery, put } from "redux-saga/effects";
+import { takeEvery, put ,all} from "redux-saga/effects";
 
 async function getData(action = { page: 1 }) {
   const params = new URLSearchParams([
@@ -30,13 +30,12 @@ export function* setDataForSearch(params = {}) {
   yield put({ type: "SET_DATA_FOR_SEARCH", payload: dataForSearch });
 }
 export function* changePage() {
-  yield takeEvery("PAGE",  setData);
+  yield takeEvery("PAGE", setData);
 }
 export function* changeInput() {
   yield takeEvery("FILTER+", setDataForSearch);
 }
 
 export default function* rootSaga() {
-  yield changeInput();
-  yield changePage();
+  yield all([changeInput(),  changePage()]);
 }
