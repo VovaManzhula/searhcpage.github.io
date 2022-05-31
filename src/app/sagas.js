@@ -37,5 +37,5 @@ export function* changeInput() {
 }
 
 export default function* rootSaga() {
-  yield all([changeInput(),  changePage()]);
+  yield all([changeInput(),  changePage(),setData(1)]);
 }
